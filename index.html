@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sistema cademico</title>
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/crud.js"></script>
+
+</head>
+
+
+<body>
+    <script>
+      $(document).ready(function () {
+    $("#nota3").change(function () {
+        var suma = calcularsuma();
+        $("#suma").val(suma);
+        var promedio=parseFloat(suma)/3;
+        var pro1=promedio.toFixed(2);
+        $("#promedio").val(pro1);
+
+    });
+
+   
+});
+
+
+
+function calcularsuma() {
+    var n1 = document.getElementById("nota1").value;
+    var n2 = document.getElementById("nota2").value;
+    var n3 = document.getElementById("nota3").value;
+    var suma = parseFloat(n1) + parseFloat(n2)+ parseFloat(n3);
+
+   
+        return suma;
+}
+
+
+
+    </script>
+    <form class="form-inline my-2 my-lg-0">
+
+        <input name="search" id="search" class="form-control mr-sm-2" type="search" placeholder="Buscar por Apellido"
+            aria-label="Search">
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-6" style="text-align: center;">
+
+
+                <form id="formulario" method="POST" action="#">
+                    <div>
+                        <h1>
+                            <small class="label label-info">Datos del estudiante </small>
+                        </h1>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombres">Nombre del estudiante</label>
+                        <input minlength="4" minlength="30" type="text" class="form-control" id="nombre" name="nombre"
+                            aria-describedby="nombreHelp" placeholder="ngrese el nombre del estudiante" required>
+                        <small id="nombreHelp" class="form-text text-muted">Ingrese el nombre </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellido">Apellidos del estudiante </label>
+                        <input minlength="4" minlength="30" type="text" class="form-control" id="apellido"
+                            name="apellido" aria-describedby="apellidoHelp" placeholder="Ingrese el apellido " required>
+                        <small id="apellidosHelp" class="form-text text-muted">Ingrese el apellido </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="cedula">Cedula del estudiante </label>
+                        <input pattern="^[9|8|7|6|5|4|3|2|1|0]\d{9}$" required type="text" class="form-control"
+                            id="cedula" name="cedula" aria-describedby="cedulaHelp" placeholder="Ingrese la cedula">
+                        <small id="cedulaHelp" class="form-text text-muted">Ingrese la cedula </small>
+                    </div>
+                    <div>
+                        <h1>
+                            <small class="label label-warning">Asignaturas
+                            </small>
+                        </h1>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="cedula">Materia </label>
+                        <input minlength="4" minlength="30" required type="text" class="form-control" id="materia"
+                            name="materia" aria-describedby="cedulaHelp" placeholder="">
+                        <small id="cedulaHelp" class="form-text text-muted">Nombre</small>
+
+                        <input required type="text" class="form-control" id="nota1" value="0" name="nota1"
+                            aria-describedby="cedulaHelp" placeholder="">
+
+                        <small id="cedulaHelp" class="form-text text-muted">Calificación 1</small>
+                        <input required type="text" class="form-control" id="nota2" value="0" name="nota2"
+                            aria-describedby="cedulaHelp" placeholder="">
+
+                        <small id="cedulaHelp" class="form-text text-muted">Calificación 2</small>
+                        <input required type="text" class="form-control" id="nota3" value="0" name="nota3"
+                            aria-describedby="cedulaHelp" placeholder="">
+
+                        <small id="cedulaHelp" class="form-text text-muted">Calificación 3</small>
+                    </div>
+                    <div class="form-group">
+                        <input  type="text" class="form-control" id="suma" name="suma">
+
+                    </div>
+                    <div class="form-group">
+                        <input maxlength="4" type="text" class="form-control" id="promedio" name="promedio">
+
+                    </div>
+
+                    <div class="12u">
+                        <input type="hidden" name="estudianteId" id="estudianteId" />
+                        <input type="submit" name="form_action" id="form_action" class="btn btn-info" value="Guardar" />
+                    </div>
+                </form>
+            </div>
+            <div class="col"  id="task-resukt">
+                <h3>Tabla de busqueda</h3>
+                <table id="tabla_estu" class="table table-bordered table-dark ">
+                    <thead id="cabezera">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre del estudiante</th>
+                            <th>Cedula</th>
+                            <th>Materia</th>
+                            <th>Nota 1</th>
+                            <th>Nota 2</th>
+                            <th>Nota 3</th>
+                            <th>Suma de las calificaciones</th>
+                            <th>Promedio total</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="container1"></tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-md-4" id="task-resukt">
+                <h3>Tabla de regitro</h3>
+
+                <table id="tabla_estu" class="table table-bordered table-dark ">
+                    <thead id="cabezera">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre del estudiante</th>
+                            <th>Cedula</th>
+                            <th>Materia</th>
+                            <th>Nota 1</th>
+                            <th>Nota 2</th>
+                            <th>Nota 3</th>
+                            <th>Suma de las calificaciones</th>
+                            <th>Promedio total</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="estudiantes"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   
+
+    
+</body>
+
+</body>
+
+</html>
